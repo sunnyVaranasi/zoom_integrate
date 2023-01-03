@@ -51,8 +51,8 @@ if(cluster.isMaster){
 //         //__dirname : It will resolve to your project folder.
 //     });
     
-    app.get('/', function(req, res) {
-        res.sendFile(path.join(__dirname, '/verifyzoom.html'));
+    app.use('/', (req, res, next) => {
+        res.send(3e41c3afc84848e095bdb63213c5c57f);
     });
     app.get('/zoom', async function(req, res){
         // console.log(authorize());
