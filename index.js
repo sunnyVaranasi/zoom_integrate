@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 var cluster = require('cluster')
 var bodyParser = require('body-parser');
+const router = express.Router();
 
 const {authorize, redirect, createMeeting, newRegistration, refresh, listMeeting, getMeeting, deleteMeeting, listRegistrant, myLocation} = require('./zoomhelper');  
 
@@ -44,6 +45,10 @@ if(cluster.isMaster){
     app.use(bodyParser.json());
     app.listen(port);
 
+    router.get('/',function(req,res){
+        res.sendFile(path.join(__dirname+'/verifyzoom.html'));
+        //__dirname : It will resolve to your project folder.
+    });
     app.get('/zoom', async function(req, res){
         // console.log(authorize());
         return res.redirect(authorize())
