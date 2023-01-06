@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const path = require('path');
+const router = express.Router();
 var cluster = require('cluster')
 var bodyParser = require('body-parser');
 // const router = express.Router();
@@ -28,7 +29,7 @@ if(cluster.isMaster){
     }
 
     cluster.on('online', function(worker){
-        console.log('Product Worker ' + worker.process.pid + ' is online');
+        console.log('Dev Worker ' + worker.process.pid + ' is online');
     });
     cluster.on('exit', function(worker, code, signal){
         console.log('Worker ' + worker.process.pid + ' died');
@@ -44,6 +45,7 @@ if(cluster.isMaster){
     }));
 
     app.use(bodyParser.json());
+    app.use('/', router);
     app.listen(port);
 
 //     router.get('/',function(req,res){
@@ -54,6 +56,12 @@ if(cluster.isMaster){
     app.use('/', (req, res, next) => {
         res.send("3e41c3afc84848e095bdb63213c5c57f");
     });
+
+    router.get('/documentation',function(req,res){
+        res.sendFile(path.join(__dirname+'/documentation.html'));
+        //__dirname : It will resolve to your project folder.
+    });
+
     app.get('/zoom', async function(req, res){
         // console.log(authorize());
         return res.redirect(authorize())
