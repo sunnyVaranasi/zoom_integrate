@@ -62,6 +62,13 @@ if(cluster.isMaster){
         //__dirname : It will resolve to your project folder.
     });
 
+    
+    router.get('/privacy',function(req,res){
+        res.sendFile(path.join(__dirname+'/privacy.html'));
+        //__dirname : It will resolve to your project folder.
+    });
+
+    
     app.get('/zoom', async function(req, res){
         // console.log(authorize());
         return res.redirect(authorize())
