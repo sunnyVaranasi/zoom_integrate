@@ -45,7 +45,7 @@ if(cluster.isMaster){
     }));
 
     app.use(bodyParser.json());
-    app.use('/', router);
+//     app.use('/', router);
     app.listen(port);
 
 //     router.get('/',function(req,res){
@@ -53,27 +53,27 @@ if(cluster.isMaster){
 //         //__dirname : It will resolve to your project folder.
 //     });
     
-    app.use('/', (req, res, next) => {
+    app.get('/', (req, res) => {
         res.send("3e41c3afc84848e095bdb63213c5c57f");
     });
 
-    router.get('/documentation',function(req,res){
+    app.get('/documentation',function(req,res){
         res.sendFile(path.join(__dirname+'/documentation.html'));
         //__dirname : It will resolve to your project folder.
     });
 
     
-    router.get('/privacy',function(req,res){
+    app.get('/privacy',function(req,res){
         res.sendFile(path.join(__dirname+'/privacy.html'));
         //__dirname : It will resolve to your project folder.
     });
 
-    router.get('/terms',function(req,res){
+    app.get('/terms',function(req,res){
         res.sendFile(path.join(__dirname+'/terms.html'));
         //__dirname : It will resolve to your project folder.
     });
     
-    router.get('/support',function(req,res){
+    app.get('/support',function(req,res){
         res.sendFile(path.join(__dirname+'/support.html'));
         //__dirname : It will resolve to your project folder.
     });
